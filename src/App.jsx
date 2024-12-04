@@ -108,9 +108,10 @@ const handleAddFighter = (fighter) => {
     // money >= fighter.price ? setTeam([...team, fighter]), setMoney(money - fighter.price) : console.log('Not enough Money');
     if( money >= fighter.price){
       //simplifying
+      //merging the team spreeead and fighter to be added, and putting it in a varible to be reused
       const updateTeam = [...team, fighter]
-      setTeam(updateTeam);
-      setMoney(money - fighter.price)
+      setTeam(updateTeam);//updates team
+      setMoney(money - fighter.price)//updates money
       setTotalStr(calcTotalStr(updateTeam))//updates total strength
       setTotalAgi(calcTotalAgi(updateTeam))//updates agility
     } else {
@@ -123,20 +124,17 @@ const handleAddFighter = (fighter) => {
 const handleRemoveFighter = (fighterIndex) => {
   //filter creates a new array so it does not directly impact the state of any current array
   // _ This is the first parameter (which would normally represent the element itself), but in this case, it’s not used. It’s a common pattern when you don’t need the value of the element but just the index. The underscore (_) is a placeholder that indicates you’re intentionally ignoring this parameter.
+  // the updated team will be put in a varible and will be filtered through the array index. if the index does not match the fightIndex(the fighter we are removing), then that index will get added to the new array
+  //having it in a varible will allow me to recall this to setTeam, calcTotalStr, and calcTotalAgi
   const updateTeam = team.filter((_, index) => index !== fighterIndex );
   setTeam(updateTeam);
+  //to add the amount back to the total, all is needed is to add the team[index of hte fight were are removing"fighterIndex"].price and add that value to money, and set it
   setMoney(money + team[fighterIndex].price)
   setTotalStr(calcTotalStr(updateTeam));
   setTotalAgi(calcTotalAgi(updateTeam));
 
 };
 
-
-
-  //  } catch (error) {
-  //   console.log('server error');
-    
-  //  }
 
 
   return (
